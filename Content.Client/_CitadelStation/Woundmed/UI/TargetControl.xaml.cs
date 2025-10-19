@@ -4,14 +4,16 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 
+
 namespace Content.Client._CitadelStation.Woundmed.UI;
 
 [GenerateTypedNameReferences]
-public sealed partial class FooControl : UIWidget
+public sealed partial class TargetControl : UIWidget
 {
-    public FooControl()
+    public TargetControl()
     {
         RobustXamlLoader.Load(this);
-        PressButton.OnPressed += _ => Logger.Debug("Foo");
+        // PressButton.OnPressed += _ => Logger.Debug("Foo");
+        TargetChoice.Texture = Theme.ResolveTexture("target_doll");
     }
 }

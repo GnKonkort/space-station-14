@@ -1,0 +1,29 @@
+<widgets:TargetControl
+    xmlns="https://spacestation14.io"
+    xmlns:widgets="clr-namespace:Content.Client._CitadelStation.Woundmed.UI"
+    Name="WoundmedWidget">
+    <!--<BoxContainer Orientation="Vertical" SeparationOverride="4" MinWidth="150" VerticalExpand="True"
+        HorizontalExpand="True"
+        VerticalAlignment="Bottom"
+        HorizontalAlignment="Right">
+        <Control HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <Button Name="PressButton" Text="Click me!" />
+        </Control>
+    </BoxContainer>!-->
+    <TextureRect Name="TargetChoice" Stretch="KeepAspectCentered" SetSize="96 96" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <BoxContainer VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Vertical">
+            <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" SetSize="92 32">
+                <Button Name="Head" SetSize="32 32" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="32 0 32 0"/>
+            </BoxContainer>
+            <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalExpand="True" SetSize="92 32">
+                <Button Name="LeftArm" SetSize="16 32" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="16 0 0 0"/>
+                <Button Name="Torso" SetSize="32 32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button Name="RightArm" SetSize="16 32" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 16 0" />
+            </BoxContainer>
+            <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalExpand="True" SetSize="92 32">
+                <Button Name="LeftLeg" SetSize="16 32" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="32 0 0 0"/>
+                <Button Name="RightLeg" SetSize="16 32" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 32 0"/>
+            </BoxContainer>
+        </BoxContainer>
+    </TextureRect>
+</widgets:TargetControl>
