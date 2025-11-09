@@ -57,6 +57,7 @@ public sealed class TargetWidgetController : UIController, IOnStateEntered<Gamep
             BodypartTargetChangeNetMessage = new BodypartTargetChangeEvent(player, bodypart);
             _net.SendSystemNetworkMessage(BodypartTargetChangeNetMessage);
             bodypartTargetingComponent.chosenBodyPart = bodypart;
+            Logger.Debug("Changed bodypart!");
         }
 
     }
