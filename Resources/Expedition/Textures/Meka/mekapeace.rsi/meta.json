@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 64
+  },
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from skyrat-tg at https://github.com/Skyrat-SS13/Skyrat-tg/tree/master/modular_skyrat/modules/borgs/icons credits and thanks for permission to use sprites to TheOOZ",
+  "states": [
+	{
+      "name": "mekapeace_alive",
+      "directions": 4
+	},
+    {
+      "name": "mekapeace_dead",
+      "directions": 1,
+	  "delays": [
+		[
+		  1,
+		  0.2,
+		  0.2,
+		  0.2,
+		  10,
+		  0.2,
+		  0.2,
+		  0.2
+		]
+	  ]
+	},	
+    {
+      "name": "mekapeace_alive-unshaded",
+      "directions": 4,
+      "delays": [
+        [
+          10,
+          0.2,
+          1,
+          0.2
+        ],
+        [
+          10,
+          0.2,
+          1,
+          0.2
+        ],
+        [
+          10,
+          0.2,
+          1,
+          0.2
+        ],
+        [
+          10,
+          0.2,
+          1,
+          0.2
+        ]
+      ]
+    }
+  ]
+}

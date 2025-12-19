@@ -1,0 +1,1312 @@
+﻿- type: inventoryTemplate
+  id: tallBorg
+  slots:
+    - name: head
+      slotTexture: head
+      slotFlags: HEAD
+      uiWindowPos: 0,1
+      strippingWindowPos: 0,0
+      displayName: Head
+    - name: suitstorage
+      slotTexture: suit_storage
+      slotFlags:   SUITSTORAGE
+      slotGroup: MainHotbar
+      stripTime: 10
+      uiWindowPos: 2,0
+      strippingWindowPos: 2,5
+      displayName: Suit Storage
+      offset: 0, -0.15           
+    - name: id
+      slotTexture: id
+      slotFlags: IDCARD
+      slotGroup: SecondHotbar
+      stripTime: 10
+      uiWindowPos: 2,1
+      strippingWindowPos: 2,4
+      displayName: ID
+    - name: belt
+      slotTexture: belt
+      slotFlags: BELT
+      slotGroup: SecondHotbar
+      stripTime: 10
+      uiWindowPos: 3,1
+      strippingWindowPos: 1,5
+      displayName: Belt
+      offset: 0.02, -0.2
+    - name: back
+      slotTexture: back
+      slotFlags: BACK
+      slotGroup: SecondHotbar
+      stripTime: 10
+      uiWindowPos: 3,0
+      strippingWindowPos: 0,5
+      displayName: Back
+      offset: 0, -0.15
+    - name: pocket1
+      slotTexture: pocket
+      slotFlags: POCKET
+      slotGroup: MainHotbar
+      stripTime: 10
+      uiWindowPos: 0,3
+      strippingWindowPos: 0,4
+      displayName: Pocket
+      stripHidden: true      
+      
+- type: entity
+  name: Высокий киборг
+  description: Если что, Вы этого видеть не должны. Адмемы почините описание раз уж используете.
+  parent: BaseMob
+  id: tallBorgBase
+  components:
+  - type: Reactive
+    groups:
+      Acidic: [Touch]
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: NoSlip
+  - type: StaticPrice
+    price: 220000  
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.45
+        density: 150
+        mask:
+        - MobMask
+        layer:
+        - MobLayer      
+  - type: RotationVisuals
+    horizontalRotation: 90
+  - type: MobState
+    allowedStates:
+    - Alive
+    - Dead
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      200: Dead
+    allowRevives: true  
+  - type: IdExaminable      
+  - type: HealthExaminable
+    examinableTypes:
+      - Blunt
+      - Slash
+      - Piercing
+      - Heat
+      - Shock
+    locPrefix: silicon    
+  # - type: Access
+  #   enabled: true
+  #   groups:
+  #   - AllAccess 
+  - type: NpcFactionMember
+    factions:
+    - NanoTrasen   
+  - type: Vocal
+    sounds:
+      Unsexed: FemaleReptilian
+  - type: TTS
+    voice: ignatiaflootravel  
+  - type: Inventory
+    templateId: tallBorg
+  - type: InventorySlots
+  - type: Body
+    prototype: Reptilian
+    requiredLegs: 1
+  - type: Hands
+    showInHands: false  
+  - type: IntrinsicRadioReceiver
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+    - Common
+  - type: ActiveRadio
+    channels:
+    - Binary
+    - Common
+  - type: UserInterface
+    interfaces:
+      enum.SiliconLawsUiKey.Key:
+        type: SiliconLawBoundUserInterface
+      enum.BorgUiKey.Key:
+        type: BorgBoundUserInterface
+      enum.StrippingUiKey.Key:
+        type: StrippableBoundUserInterface  
+  - type: SiliconLawProvider
+    laws: Corporate
+  - type: SiliconLawBound              
+  - type: ZombieImmune
+  - type: Repairable
+    doAfterDelay: 10
+    allowSelfRepair: true      
+  - type: TypingIndicator
+    proto: robot 
+  - type: Pullable
+  - type: Insulated  
+  - type: Puller
+    needsHands: false
+  - type: Tool
+    speed: 2.5
+    qualities:
+      - Prying
+  - type: Prying
+    pryPowered: !type:Bool
+        true
+    force: !type:Bool
+      true
+    useSound:
+      path: /Audio/Items/crowbar.ogg    
+  - type: Tag
+    tags:
+    - ShoesRequiredStepTriggerImmune
+    - DoorBumpOpener
+    - CanPilot
+    - FootstepSound    
+  - type: StatusEffects
+    allowed:
+    - SlowedDown    
+  - type: Emoting       
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/base.rsi
+    offset: 0,0.4
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: alive
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: alive
+        BaseUnshaded: alive-unshaded
+      Dead:
+        Base: alive    
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      70: 0.8
+      150: 0.6
+  - type: MovementSpeedModifier
+    baseWalkSpeed : 3
+    baseSprintSpeed : 5  
+  - type: MeleeWeapon
+    altDisarm: true   
+    damage:
+     types:
+       Blunt: 5
+       Slash: 10
+       Piercing: 5     
+  - type: UnblockableSpeech
+  - type: ShowJobIcons  
+  - type: Damageable
+    damageContainer: Silicon  
+  - type: Climbing
+  - type: NameIdentifier
+    group: GenericNumber
+  - type: ComplexInteraction
+  - type: InteractionPopup
+    successChance: 1
+    interactSuccessString: hugging-success-generic
+    interactSuccessSound: /Audio/Effects/thudswoosh.ogg
+    messagePerceivedByOthers: hugging-success-generic-others    
+
+- type: startingGear
+  id: tallBorgCargoGear
+  equipment:
+    head: ClothingHeadHatBeretQM
+    id: CargoPDA
+    back: ClothingBackpackSatchelCargo
+    pocket1: FlashlightSeclite
+
+- type: entity
+  parent: tallBorgBase
+  id: tallBorgCargo
+  abstract: true 
+  components:
+  - type: Pacified   
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+    - Common
+    - Supply
+  - type: ActiveRadio
+    channels:
+    - Binary
+    - Common
+    - Supply   
+  - type: Loadout
+    prototypes: [ tallBorgCargoGear ]
+
+
+- type: entity
+  parent: [ tallBorgCargo, tallBorgBase, BaseMob ]
+  id: tallBorgFMekaCargo 
+  name: Meka-Cargo mark F
+  description: Самые зажиточные отделы снабжения могут позволить арендовать себе киборгов корпорации МЕКА.  
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/fmekacargo.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: fmekacargo_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: fmekacargo_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: fmekacargo_alive
+        BaseUnshaded: fmekacargo_alive-unshaded
+      Dead:
+        Base: fmekacargo_dead  
+        
+- type: entity
+  parent: [ tallBorgCargo, tallBorgBase, BaseMob ]
+  id: tallBorgMMekaCargo 
+  name: Meka-Cargo mark M
+  description: Самые зажиточные отделы снабжения могут позволить арендовать себе киборгов корпорации МЕКА.  
+  components:
+  - type: Vocal
+    sounds:
+      Unsexed: MaleReptilian
+  - type: TTS
+    voice: sentrybot 
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mmekacargo.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mmekacargo_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mmekacargo_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mmekacargo_alive
+        BaseUnshaded: mmekacargo_alive-unshaded
+      Dead:
+        Base: mmekacargo_dead  
+
+- type: entity
+  parent: [ tallBorgCargo, tallBorgBase, BaseMob ]
+  id: tallBorgMekaCargo 
+  name: Meka-Cargo
+  description: Самые зажиточные отделы снабжения могут позволить арендовать себе киборгов корпорации МЕКА.  
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mekacargo.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mekacargo_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mekacargo_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mekacargo_alive
+        BaseUnshaded: mekacargo_alive-unshaded
+      Dead:
+        Base: mekacargo_dead          
+
+- type: startingGear
+  id: tallBorgEngiGear
+  equipment:
+    head: ClothingHeadHatBeretEngineering
+    id: EngineerPDA
+    back: ClothingBackpackSatchelEngineering
+    pocket1: FlashlightSeclite
+    belt: ClothingBeltChiefEngineerFilled
+
+- type: entity
+  parent: tallBorgBase
+  id: tallBorgEngi
+  abstract: true 
+  components:
+  - type: Pacified   
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+    - Common
+    - Engineering
+  - type: ActiveRadio
+    channels:
+    - Binary
+    - Common
+    - Engineering
+  - type: ShowHealthBars
+    damageContainers:
+    - Silicon          
+  - type: Loadout
+    prototypes: [ tallBorgEngiGear ]
+
+- type: entity
+  parent: [ tallBorgEngi, tallBorgBase, BaseMob ]
+  id: tallBorgFMekaEngi 
+  name: Meka-Engi mark F
+  description: Киборг-инженер корпорации МЕКА – стабильное обслуживание вашей станции на протяжении жизни вселенной!  
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/fmekaengi.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: fmekaengi_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: fmekaengi_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: fmekaengi_alive
+        BaseUnshaded: fmekaengi_alive-unshaded
+      Dead:
+        Base: fmekaengi_dead          
+        
+- type: entity
+  parent: [ tallBorgEngi, tallBorgBase, BaseMob ]
+  id: tallBorgMMekaEngi 
+  name: Meka-Engi mark M
+  description: Киборг-инженер корпорации МЕКА – стабильное обслуживание вашей станции на протяжении жизни вселенной!  
+  components:
+  - type: Vocal
+    sounds:
+      Unsexed: MaleReptilian
+  - type: TTS
+    voice: sentrybot  
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mmekaengi.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mmekaengi_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mmekaengi_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mmekaengi_alive
+        BaseUnshaded: mmekaengi_alive-unshaded
+      Dead:
+        Base: mmekaengi_dead      
+        
+- type: entity
+  parent: [ tallBorgEngi, tallBorgBase, BaseMob ]
+  id: tallBorgMekaEngi 
+  name: Meka-Engi
+  description: Киборг-инженер корпорации МЕКА – стабильное обслуживание вашей станции на протяжении жизни вселенной!  
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mekaengi.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mekaengi_alive        
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mekaengi_alive
+        BaseUnshaded: mekaengi_alive-unshaded
+      Dead:
+        Base: mekaengi_dead
+
+- type: startingGear
+  id: tallBorgJaniGear
+  equipment:
+    head: ClothingHeadHatBeret
+    id: JanitorPDA
+    back: ClothingBackpackSatchel
+    pocket1: FlashlightSeclite
+    belt: ClothingBeltJanitorFilled
+
+- type: entity
+  parent: tallBorgBase
+  id: tallBorgJani
+  abstract: true 
+  components:
+  - type: Pacified 
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+    - Common
+    - Service
+  - type: ActiveRadio
+    channels:
+    - Binary
+    - Common
+    - Service      
+  - type: Loadout
+    prototypes: [ tallBorgJaniGear ]
+ 
+- type: entity
+  parent: [ tallBorgJani, tallBorgBase, BaseMob ]
+  id: tallBorgFMekaJani 
+  name: Meka-Jani mark F
+  description: Киборг корпорации МЕКА - гарант чистоты и порядка на вашем объекте!
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/fmekajani.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: fmekajani_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: fmekajani_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: fmekajani_alive
+        BaseUnshaded: fmekajani_alive-unshaded
+      Dead:
+        Base: fmekajani_dead
+
+- type: entity
+  parent: [ tallBorgJani, tallBorgBase, BaseMob ]
+  id: tallBorgMMekaJani 
+  name: Meka-Jani mark M
+  description: Киборг корпорации МЕКА - гарант чистоты и порядка на вашем объекте!  
+  components:
+  - type: Vocal
+    sounds:
+      Unsexed: MaleReptilian
+  - type: TTS
+    voice: sentrybot   
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mmekajani.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mmekajani_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mmekajani_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mmekajani_alive
+        BaseUnshaded: mmekajani_alive-unshaded
+      Dead:
+        Base: mmekajani_dead 
+
+- type: entity
+  parent: [ tallBorgJani, tallBorgBase, BaseMob ]
+  id: tallBorgMekaJani 
+  name: Meka-Jani
+  description: Киборг корпорации МЕКА - гарант чистоты и порядка на вашем объекте! 
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mekajani.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mekajani_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mekajani_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mekajani_alive
+        BaseUnshaded: mekajani_alive-unshaded
+      Dead:
+        Base: mekajani_dead         
+
+- type: entity
+  id: ClothingBeltMedicalFilledTallBorg
+  parent: ClothingBeltMedical
+  suffix: FilledTallBorg
+  components:
+  - type: StorageFill
+    contents:
+      - id: Brutepack
+        amount: 2
+      - id: Ointment
+        amount: 1
+      - id: Bloodpack
+        amount: 1
+      - id: Gauze
+      - id: EmergencyMedipen    
+      - id: BorgHypo
+
+- type: startingGear
+  id: tallBorgMedGear
+  equipment:
+    head: ClothingHeadHatBeretMedic
+    id: MedicalPDA
+    back: ClothingBackpackSatchelMedical
+    pocket1: FlashlightSeclite
+    belt: ClothingBeltMedicalFilledTallBorg
+
+- type: entity
+  parent: tallBorgBase
+  id: tallBorgMed
+  abstract: true 
+  components:
+  - type: Pacified 
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+    - Common
+    - Medical
+  - type: ActiveRadio
+    channels:
+    - Binary
+    - Common
+    - Medical
+  - type: ShowHealthBars
+    damageContainers:
+    - Biological        
+  - type: Loadout
+    prototypes: [ tallBorgMedGear ]
+
+- type: entity
+  parent: [ tallBorgMed, tallBorgBase, BaseMob ]
+  id: tallBorgFMekaMed 
+  name: Meka-Med mark F
+  description: Киборги корпорации МЕКА обеспечивают лучший уход за больными за соответствующую цену.    
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/fmekamed.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: fmekamed_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: fmekamed_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: fmekamed_alive
+        BaseUnshaded: fmekamed_alive-unshaded
+      Dead:
+        Base: fmekamed_dead
+
+- type: entity
+  parent: [ tallBorgMed, tallBorgBase, BaseMob ]
+  id: tallBorgMMekaMed 
+  name: Meka-Med mark M
+  description: Киборги корпорации МЕКА обеспечивают лучший уход за больными за соответствующую цену.    
+  components:
+  - type: Vocal
+    sounds:
+      Unsexed: MaleReptilian
+  - type: TTS
+    voice: sentrybot   
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mmekamed.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mmekamed_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mmekamed_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mmekamed_alive
+        BaseUnshaded: mmekamed_alive-unshaded
+      Dead:
+        Base: mmekamed_dead        
+
+- type: entity
+  parent: [ tallBorgMed, tallBorgBase, BaseMob ]
+  id: tallBorgMekaMed 
+  name: Meka-Med
+  description: Киборги корпорации МЕКА обеспечивают лучший уход за больными за соответствующую цену.   
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mekamed.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mekamed_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mekamed_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mekamed_alive
+        BaseUnshaded: mekamed_alive-unshaded
+      Dead:
+        Base: mekamed_dead
+
+- type: startingGear
+  id: tallBorgMineGear
+  equipment:
+    head: ClothingHeadHatBeretQM
+    id: SalvagePDA
+    back: ClothingBackpackSatchelSalvage
+    pocket1: FlashlightSeclite
+    belt: ClothingBeltSalvageWebbing
+    suitstorage: WeaponProtoKineticAccelerator
+
+- type: entity
+  parent: tallBorgBase
+  id: tallBorgMine
+  abstract: true 
+  components:
+  - type: CombatMode     
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+    - Common
+    - Supply
+  - type: ActiveRadio
+    channels:
+    - Binary
+    - Common
+    - Supply    
+  - type: Loadout
+    prototypes: [ tallBorgMineGear ]
+
+- type: entity
+  parent: [ tallBorgMine, tallBorgBase, BaseMob ]
+  id: tallBorgFMekaMine 
+  name: Meka-Mine mark F
+  description: Киборг корпорации МЕКА - ваш верный спутник даже в самых заброшенных местах вселенной.    
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/fmekamine.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: fmekamine_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: fmekamine_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: fmekamine_alive
+        BaseUnshaded: fmekamine_alive-unshaded
+      Dead:
+        Base: fmekamine_dead
+
+- type: entity
+  parent: [ tallBorgMine, tallBorgBase, BaseMob ]
+  id: tallBorgMMekaMine 
+  name: Meka-Mine mark M
+  description: Киборг корпорации МЕКА - ваш верный спутник даже в самых заброшенных местах вселенной.    
+  components:
+  - type: Vocal
+    sounds:
+      Unsexed: MaleReptilian
+  - type: TTS
+    voice: sentrybot   
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mmekamine.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mmekamine_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mmekamine_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mmekamine_alive
+        BaseUnshaded: fmekamine_alive-unshaded
+      Dead:
+        Base: mmekamine_dead
+
+- type: entity
+  parent: [ tallBorgMine, tallBorgBase, BaseMob ]
+  id: tallBorgMekaMine 
+  name: Meka-Mine
+  description: Киборг корпорации МЕКА - ваш верный спутник даже в самых заброшенных местах вселенной.    
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mekamine.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mekamine_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mekamine_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mekamine_alive
+        BaseUnshaded: mekamine_alive-unshaded
+      Dead:
+        Base: mekamine_dead
+
+#Sometime I'll make them great again
+#start placeholder
+- type: entity
+  parent: tallBorgBase
+  id: tallBorgNinja
+  abstract: true 
+  components:
+  - type: CombatMode  
+  - type: SiliconLawProvider
+    laws: Ninja 
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+    - Common
+  - type: ActiveRadio
+    channels:
+    - Binary
+    - Common      
+#end placeholder
+
+- type: entity
+  parent: [ tallBorgNinja, tallBorgBase, BaseMob ]
+  id: tallBorgFMekaNinja 
+  name: Meka-Ninja mark F
+  description: Вау...    
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/fmekaninja.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: fmekaninja_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: fmekaninja_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: fmekaninja_alive
+        BaseUnshaded: fmekaninja_alive-unshaded
+      Dead:
+        Base: fmekaninja_dead  
+        
+- type: entity
+  parent: [ tallBorgNinja, tallBorgBase, BaseMob ]
+  id: tallBorgMMekaNinja 
+  name: Meka-Ninja mark M
+  description: Вау...    
+  components:
+  - type: Vocal
+    sounds:
+      Unsexed: MaleReptilian
+  - type: TTS
+    voice: sentrybot   
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mmekaninja.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mmekaninja_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mmekaninja_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mmekaninja_alive
+        BaseUnshaded: mmekaninja_alive-unshaded
+      Dead:
+        Base: mmekaninja_dead 
+
+- type: entity
+  parent: [ tallBorgNinja, tallBorgBase, BaseMob ]
+  id: tallBorgMekaNinja 
+  name: Meka-Ninja
+  description: Вау...    
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mekaninja.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mekaninja_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mekaninja_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mekaninja_alive
+        BaseUnshaded: mekaninja_alive-unshaded
+      Dead:
+        Base: mekaninja_dead
+
+# them also
+#start placeholder
+- type: entity
+  parent: tallBorgBase
+  id: tallBorgPeace
+  abstract: true 
+  components:
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      350: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      220: 0.8
+      300: 0.6        
+  - type: CombatMode
+  - type: SiliconLawProvider
+    laws: NTDefault    
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - CentCom
+    - Binary
+    - Common
+    - Security
+    - Command
+    - Engineering
+    - Medical
+    - Science
+    - Service
+    - Supply
+  - type: ActiveRadio
+    channels:
+    - CentCom
+    - Binary
+    - Common
+    - Security
+    - Command
+    - Engineering
+    - Medical
+    - Science
+    - Service
+    - Supply
+  - type: ShowJobIcons
+  - type: ShowMindShieldIcons
+  - type: ShowCriminalRecordIcons
+  - type: ShowHealthBars
+    damageContainers:
+    - Biological
+    - Silicon    
+#end placeholder
+
+- type: entity
+  parent: [ tallBorgPeace, tallBorgBase, BaseMob ]
+  id: tallBorgFMekaPeace 
+  name: Meka-Peacekeeper mark F
+  description: Их покупают не только из-за внешнего вида...   
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/fmekapeace.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: fmekapeace_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: fmekapeace_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: fmekapeace_alive
+        BaseUnshaded: fmekapeace_alive-unshaded
+      Dead:
+        Base: fmekapeace_dead
+
+- type: entity
+  parent: [ tallBorgPeace, tallBorgBase, BaseMob ]
+  id: tallBorgMMekaPeace 
+  name: Meka-Peacekeeper mark M
+  description: Их покупают не только из-за внешнего вида...   
+  components:
+  - type: Vocal
+    sounds:
+      Unsexed: MaleReptilian
+  - type: TTS
+    voice: sentrybot   
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mmekapeace.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mmekapeace_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mmekapeace_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mmekapeace_alive
+        BaseUnshaded: mmekapeace_alive-unshaded
+      Dead:
+        Base: mmekapeace_dead  
+
+- type: entity
+  parent: [ tallBorgPeace, tallBorgBase, BaseMob ]
+  id: tallBorgMekaPeace 
+  name: Meka-Peacekeeper
+  description: Их покупают не только из-за внешнего вида...   
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mekapeace.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mekapeace_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mekapeace_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mekapeace_alive
+        BaseUnshaded: mekapeace_alive-unshaded
+      Dead:
+        Base: mekapeace_dead
+
+- type: startingGear
+  id: tallBorgSecGear
+  equipment:
+    head: ClothingHeadHatBeretSecurity
+    id: SecurityPDA
+    back: ClothingBackpackSatchelSecurity
+    pocket1: FlashlightSeclite
+    belt: ClothingBeltSecurityWebbingFilled
+
+- type: entity
+  parent: tallBorgBase
+  id: tallBorgSec
+  abstract: true 
+  components:
+  - type: CombatMode
+  - type: SiliconLawProvider
+    laws: NTDefault    
+  - type: MovementSpeedModifier
+    baseWalkSpeed : 3
+    baseSprintSpeed : 4   
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+    - Common
+    - Security
+  - type: ActiveRadio
+    channels:
+    - Binary
+    - Common
+    - Security  
+  - type: ShowJobIcons
+  - type: ShowMindShieldIcons
+  - type: ShowCriminalRecordIcons    
+  - type: Loadout
+    prototypes: [ tallBorgSecGear ]
+
+- type: entity
+  parent: [ tallBorgSec, tallBorgBase, BaseMob ]
+  id: tallBorgFMekaSec 
+  name: Meka-Sec mark F
+  description: Киборг корпорации МЕКА и служба безопасности?! Лучше не переходить дорогу не ему, не его владельцу.   
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/fmekasec.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: fmekasec_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: fmekasec_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: fmekasec_alive
+        BaseUnshaded: fmekasec_alive-unshaded
+      Dead:
+        Base: fmekasec_dead 
+
+- type: entity
+  parent: [ tallBorgSec, tallBorgBase, BaseMob ]
+  id: tallBorgMMekaSec 
+  name: Meka-Sec mark M
+  description: Киборг корпорации МЕКА и служба безопасности?! Лучше не переходить дорогу не ему, не его владельцу.   
+  components:
+  - type: Vocal
+    sounds:
+      Unsexed: MaleReptilian
+  - type: TTS
+    voice: sentrybot   
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mmekasec.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mmekasec_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mmekasec_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mmekasec_alive
+        BaseUnshaded: fmekasec_alive-unshaded
+      Dead:
+        Base: mmekasec_dead  
+
+- type: entity
+  parent: [ tallBorgSec, tallBorgBase, BaseMob ]
+  id: tallBorgMekaSec 
+  name: Meka-Sec
+  description: Киборг корпорации МЕКА и служба безопасности?! Лучше не переходить дорогу не ему, не его владельцу.   
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mekasec.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mekasec_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mekasec_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mekasec_alive
+        BaseUnshaded: mekasec_alive-unshaded
+      Dead:
+        Base: mekasec_dead
+
+- type: startingGear
+  id: tallBorgServeGear
+  equipment:
+    head: ClothingHeadHatBeretFrench
+    id: ServiceWorkerPDA
+    back: ClothingBackpackSatchel
+    pocket1: FlashlightSeclite
+
+- type: entity
+  parent: tallBorgBase
+  id: tallBorgServe
+  abstract: true 
+  components:
+  - type: Pacified 
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+    - Common
+    - Service
+  - type: ActiveRadio
+    channels:
+    - Binary
+    - Common
+    - Service     
+  - type: Loadout
+    prototypes: [ tallBorgServeGear ]
+
+- type: entity
+  parent: [ tallBorgServe, tallBorgBase, BaseMob ]
+  id: tallBorgFMekaServe 
+  name: Meka-Serve mark F
+  description: Киборги корпорации МЕКА частые сотрудники сервиса для элит корпораций.   
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/fmekaserve.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: fmekaserve_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: fmekaserve_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: fmekaserve_alive
+        BaseUnshaded: fmekaserve_alive-unshaded
+      Dead:
+        Base: fmekaserve_dead
+
+- type: entity
+  parent: [ tallBorgServe, tallBorgBase, BaseMob ]
+  id: tallBorgMMekaServe 
+  name: Meka-Serve mark M
+  description: Киборги корпорации МЕКА частые сотрудники сервиса для элит корпораций.   
+  components:
+  - type: Vocal
+    sounds:
+      Unsexed: MaleReptilian
+  - type: TTS
+    voice: sentrybot    
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mmekaserve.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mmekaserve_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mmekaserve_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mmekaserve_alive
+        BaseUnshaded: mmekaserve_alive-unshaded
+      Dead:
+        Base: mmekaserve_dead  
+
+- type: entity
+  parent: [ tallBorgServe, tallBorgBase, BaseMob ]
+  id: tallBorgMekaServe 
+  name: Meka-Serve
+  description: Киборги корпорации МЕКА частые сотрудники сервиса для элит корпораций.   
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mekaserve.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mekaserve_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mekaserve_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mekaserve_alive
+        BaseUnshaded: mekaserve_alive-unshaded
+      Dead:
+        Base: mekaserve_dead  
+
+- type: entity
+  parent: [ tallBorgServe, tallBorgBase, BaseMob ]
+  id: tallBorgMekaAltServe 
+  name: Meka-Serve
+  description: Киборги корпорации МЕКА частые сотрудники сервиса для элит корпораций.   
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mekaserve_alt.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mekaserve_alt_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mekaserve_alt_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mekaserve_alt_alive
+        BaseUnshaded: mekaserve_alt_alive-unshaded
+      Dead:
+        Base: mekaserve_alt_dead
+
+# Well and them too
+#start placeholder
+- type: startingGear
+  id: tallBorgSyndieGear
+  equipment:
+    head: ClothingHeadHatSyndieMAA
+    id: SyndiPDA
+    back: ClothingBackpackSyndicate
+    pocket1: FlashlightSeclite
+
+- type: entity
+  parent: tallBorgBase
+  id: tallBorgSyndie
+  abstract: true 
+  components:
+  - type: NpcFactionMember
+    factions:
+    - Syndicate  
+  - type: CombatMode  
+  - type: SiliconLawProvider
+    laws: SyndicateStatic 
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+    - Syndicate
+  - type: ActiveRadio
+    channels:
+    - Syndicate
+  - type: Access
+    tags:
+    - NuclearOperative
+    - SyndicateAgent     
+  - type: Loadout
+    prototypes: [ tallBorgSyndieGear ]  
+#end placeholder
+
+- type: entity
+  parent: [ tallBorgSyndie, tallBorgBase, BaseMob ]
+  id: tallBorgFMekaSyndi
+  name: M??a-S???e F
+  description: Похоже на киборга корпорации МЕКА, но...   
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/fmekasyndi.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: fmekasyndi_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: fmekasyndi_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: fmekasyndi_alive
+        BaseUnshaded: fmekasyndi_alive-unshaded
+      Dead:
+        Base: fmekasyndi_dead
+        
+- type: entity
+  parent: [ tallBorgSyndie, tallBorgBase, BaseMob ]
+  id: tallBorgMMekaSyndi
+  name: M??a-S???e M
+  description: Похоже на киборга корпорации МЕКА, но...   
+  components:
+  - type: Vocal
+    sounds:
+      Unsexed: MaleReptilian
+  - type: TTS
+    voice: sentrybot    
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mmekasyndi.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mmekasyndi_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mmekasyndi_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mmekasyndi_alive
+        BaseUnshaded: mmekasyndi_alive-unshaded
+      Dead:
+        Base: mmekasyndi_dead
+
+- type: entity
+  parent: [ tallBorgSyndie, tallBorgBase, BaseMob ]
+  id: tallBorgMekaSyndi
+  name: M??a-S???e
+  description: Похоже на киборга корпорации МЕКА, но...   
+  components:
+  - type: Sprite
+    sprite: /Uploaded/tallBorg/mekasyndi.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: mekasyndi_alive     
+    - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      state: mekasyndi_alive-unshaded
+      shader: unshaded      
+  - type: Appearance
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: mekasyndi_alive
+        BaseUnshaded: mekasyndi_alive-unshaded
+      Dead:
+        Base: mekasyndi_dead        

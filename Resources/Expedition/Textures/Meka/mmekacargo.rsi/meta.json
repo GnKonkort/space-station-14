@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 64
+  },
+  "license": "CC-BY-SA-3.0",
+  "copyright": "TTaken from skyrat-tg at https://github.com/Skyrat-SS13/Skyrat-tg/tree/master/modular_skyrat/modules/borgs/icons credits and thanks for permission to use sprites to TheOOZ",
+  "states": [
+	{
+	  "name": "mmekacargo_alive",
+	  "directions": 4
+	},
+	{
+	  "name": "mmekacargo_dead",
+	  "directions": 1
+	},
+	{
+      "name": "mmekacargo_alive-unshaded",
+      "directions": 4
+    }
+  ]
+}
